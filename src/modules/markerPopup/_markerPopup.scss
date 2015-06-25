@@ -1,0 +1,50 @@
+//------------------------------------------------------------------
+// Marker Popup
+//------------------------------------------------------------------
+
+.markerpopup {
+    display: table;
+    padding-bottom: 5px;
+    font-size: 14px;
+
+    &-name {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    &-address {
+        margin: 5px 0 0;
+    }
+
+    &-phone {
+
+        a {
+            color: $base-font-color;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    &-details {
+        margin-top: 5px;
+    }
+}
+
+// Popup Marker
+.lf_mapbubble_text {
+    max-width: 300px;
+    overflow: hidden;
+    text-align: left;
+
+}
+
+
+// Via Michelin
+.bubble-content {
+    .lf_mapbubble_text {
+        min-width: 180px;
+    }
+}

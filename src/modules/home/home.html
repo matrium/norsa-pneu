@@ -1,0 +1,36 @@
+<div class="home">
+    <div class="background-white">
+        <div class="container">
+            <div class="home-search">
+                <div class="home-search-top">
+                    <h1 class="home-search-top-title title">{{'frontoffice.search.geolocation_search.title' | translate }}</h1>
+                </div>
+                <div class="home-search-nav">
+                    {% include 'searchform' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% include 'eventsslider' with 'lf_big_picture' %}
+        {% include 'eventsimg' with 'lf_big_picture' %}
+    </div>
+    <div class="home-intro container">
+        <h2 class="home-intro-title title text-center">{{'frontoffice.index_page.introduction_title' | translate }}</h2>
+        <div class="text-justify home-intro-text">
+            <p>{{'frontoffice.index_page.introduction_text' | translate | newline_to_br }}</p>
+        </div>
+    </div>
+    <div class="background-grey">
+        <div class="container">
+            {% include 'eventsactu' with 'lf_detailed' %}
+        </div>
+    </div>
+    <div class="container">
+        {% include 'eventsimg' with 'lf_small_picture,2' %}
+    </div>
+    <div class="container">
+        {% include 'citiesseo' %}
+        {% include 'copyright' %}
+    </div>
+</div>

@@ -1,0 +1,44 @@
+{
+  "posZoomLevel": 13,
+  "clusterMarker" : {
+    "iconUrl": "/images/marker/cluster.png",
+    "iconSize": {"x": 40, "y": 60},                    // Size of the icon image in pixels.
+    "iconAnchor": {"x": 2, "y": 79},                  // The coordinates of the "tip" of the icon (relative to its top left corner). The icon will be aligned so that this point is at the marker's geographical location.
+    "textAnchor": {"x": 12, "y": 12},                   // The position of text relative to the top of the icon. Currently only the vertical (y) anchor is supported.
+    "className": "active-cluster",                     // Optional CSS class to be applied to this type of marker.
+    "shadowUrl": null
+  },
+  "inactiveClusterMarker" : {
+    "iconUrl": "/images/marker/cluster-inactive.png",
+    "iconSize": {"x": 40, "y": 60},
+    "iconAnchor": {"x": 2, "y": 79},
+    "textAnchor": {"x": 12, "y": 12},
+    "className": "inactive-cluster",
+    "shadowUrl": null
+  },
+  "inactiveMarker" : {
+    "iconUrl": "/images/marker/marker-inactive.png",
+    "iconSize": {"x": 40, "y": 60},
+    "iconAnchor": {"x": 2, "y": 79},
+    "className": "inactive-number",
+    "shadowUrl": null
+  },
+  "numberMarker" : {
+    "iconUrl": "/images/marker/marker.png",
+    "iconSize": {"x": 40, "y": 60},
+    "iconAnchor": {"x": 2, "y": 79},
+    "popupAnchor": {"x": 19, "y": -75}, // The point from which the marker popup opens, relative to the anchor point.
+    "textAnchor": {"x": 12, "y": 12},
+    "className": "active-number",
+    "shadowUrl": null
+
+  },
+  "singleMarker" : {
+    "iconUrl": "/images/marker/marker-pos.png",
+    "iconSize": {"x": 40, "y": 60},
+    "iconAnchor": {"x": 2, "y": 79},
+    "className": "marker",
+    "shadowUrl": null
+  }
+
+}

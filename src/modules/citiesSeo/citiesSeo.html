@@ -1,0 +1,33 @@
+{% if footerlocal_page != 'point_of_sale' and page.type != null %}
+{% unless footerlocal_page == 'index' %}
+    {% assign add_hlevel = add_hlevel | plus:1 %}
+{% endunless %}
+
+<div class="citiesseo hidden-print container_seo">
+    <h{{ 2 | plus:add_hlevel }} class="citiesseo-title title h3">
+        {{ 'frontoffice.footer_seo.title' | translate }}
+    </h{{ 2 | plus:add_hlevel }}>
+
+    <div class="row">
+        {% for node in footerlocal[footerlocal_page].nodes %}
+            <div class="col-md-3 col-sm-4 col-xs-6 citiesseo-column">
+                <h{{ 3 | plus:add_hlevel }} class="citiesseo-name title h4">
+                    <a href="{{ node.url }}">
+                        {{node.label}}
+                    </a>
+                </h{{ 3 | plus:add_hlevel }}>
+
+                <ul class="citiesseo-cities">
+                    {% for city in node.cities %}
+                        <li class="citiesseo-cities-name">
+                            <a href="{{ city.url }}" class="citiesseo-cities-link">
+                                {{city.label}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

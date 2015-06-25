@@ -1,0 +1,50 @@
+{% assign fullmap = 'yes' %}
+{% if pos.access_not_blank or pos.parking_not_blank %}
+{% assign fullmap = 'no' %}
+{% endif %}
+<div class="row pos-access">
+    <div class="{% if fullmap == 'no' %}col-md-7{% else %}col-md-12{% endif %} col-xs-12 pos-print-map">
+        <div class="relative">
+            <div id="lf_accessmap_canvas" class="pos-access-map" aria-hidden="true">
+            </div>
+            {% if fullmap == 'yes' %}
+            <button class="btn btn-primary hidden-print pos-access-map-button" data-toggle="modal" data-target="#pos-itinerary" data-bind="driving_directions_show">{{ 'frontoffice.pos.map.directions' | translate }}</button>
+            <a href="http://maps.google.fr/maps?f=q&amp;q={{ pos.lat | strip_html | truncate: 9, '' }},{{ pos.lng | strip_html | truncate: 9, '' }}" target="_blank" class="btn btn-default hidden-print visible-xs-block pos-access-map-button">{{ 'frontoffice.pos.map.openapp' | translate }}</a>
+            {% endif %}
+        </div>
+
+        <div class="pos-access-majorcities hidden-print lf_majorcities">
+            <h2 class="inline pos-access-majorcities-title h5">{{ 'frontoffice.pos.major_city.label' | translate }}</h2>
+            <ul class="inline">
+                {% for city in pos_drop.major_cities %}
+                <li>
+                    <h3 class="pos-access-majorcities-city h5 inline">
+                        <a href="{{ city.url }}">{{ city.label }}</a>
+                    </h3>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% if fullmap == 'no' %}
+    <div class="col-md-5 col-xs-12 pos-print-coordinates pos-access-infos">
+        <div itemprop="geo" itemscope="" itemtype="http://schema.org/GeoCoordinates">
+            <meta itemprop="latitude" content="{{ pos.lat | strip_html | truncate: 9, '' }}">
+            <meta itemprop="longitude" content="{{ pos.lng | strip_html | truncate: 9, '' }}">
+        </div>
+
+        <button class="btn btn-primary btn-block hidden-print" data-toggle="modal" data-target="#pos-itinerary" data-bind="driving_directions_show">{{ 'frontoffice.pos.map.directions' | translate }}</button>
+        <a href="http://maps.google.fr/maps?f=q&amp;q={{ pos.lat | strip_html | truncate: 9, '' }},{{ pos.lng | strip_html | truncate: 9, '' }}" target="_blank" class="btn btn-default btn-block hidden-print visible-xs-block">{{ 'frontoffice.pos.map.openapp' | translate }}</a>
+
+        {% if pos.access_not_blank %}
+            <h3 class="title h4 pos-access-infos-title">{{ 'frontoffice.pos.additional_info.access' | translate }}</h3>
+            <p class="text-justify">{{ pos.access | newline_to_br }}</p>
+        {% endif %}
+
+        {% if pos.parking_not_blank %}
+            <h3 class="title h4 pos-access-infos-title">{{ 'frontoffice.pos.additional_info.parking' | translate }}</h3>
+            <p class="text-justify">{{ pos.parking | newline_to_br }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>

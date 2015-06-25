@@ -1,0 +1,150 @@
+//------------------------------------------------------------------
+// Helper Class
+//------------------------------------------------------------------
+
+.vcenter {
+    @include vcenter;
+}
+
+.first-column {
+    clear: both;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.relative {
+    position: relative;
+}
+
+.inherit {
+    position: inherit;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}
+
+.clear {
+    clear: both;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.hidden-temp {
+    display: none;
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+.medium {
+    font-size: 95%;
+}
+
+.no-border {
+    border: 0 !important;
+}
+
+.background {
+    &-grey {
+        background-color: $lightgrey-color;
+    }
+
+    &-white {
+        background-color: $white-color;
+    }
+
+    &-blue {
+        background-color: $blue-color;
+    }
+}
+
+span {
+    &.loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 0;
+        border-radius: $border-radius;
+        background-color: rgba($grey-color, .5);
+        background-image: url('/shared/images/loading.gif');
+        background-repeat: no-repeat;
+        background-position: center;
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+
+        img {
+            display: none;
+        }
+    }
+}
+
+.color {
+    &-blue {
+        color: $blue-color;
+    }
+
+    &-pink {
+        color: $pink-color;
+    }
+
+    &-black {
+        color: $black-color;
+    }
+
+    &-red {
+        color: $red-color;
+    }
+
+    &-green {
+        color: $green-color;
+    }
+}
+
+@media (min-width: 992px){
+    .col-md-custom {
+        position: relative;
+        float: left;
+        padding-right: 15px;
+        padding-left: 15px;
+        width: percentage(100/7)/100;
+        min-height: 1px;
+    }
+}
+
+.title {
+    font-weight: bold;
+}
+
+.screen-reader-only {
+    position: absolute;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+.result-content-pos-locate {
+    z-index: 10;
+}
+
+.img-before-loading {
+    max-height: 1px;
+}

@@ -1,0 +1,143 @@
+{% assign state = pos.world_nodes | last %}
+{% assign zip_code = 'frontoffice.custom.zip_code.format' | translate %}
+
+<div class="result result-margin"  itemscope itemtype="http://schema.org/LocalBusiness">
+    <div class="container">
+        {% include 'breadcrumb' %}
+        {% include 'newsearch' %}
+        <div class="result-searchform">
+            {% include 'searchform' %}
+        </div>
+        {% include 'eventsslider' with 'lf_big_picture' %}
+        {% include 'eventsimg' with 'lf_big_picture' %}
+    </div>
+    <div class="result-top">
+        <div class="container">
+            <h1 class="result-top-title title h2">{{ results_header.title }}</h1>
+            <div class="result-top-subtitle">{{ results_header.subtitle }}</div>
+        </div>
+    </div>
+    <div class="result-background">
+        <div class="container">
+            {% if results.size !=0 %}
+            <div class="row row-no-padding">
+                <div class="col-md-7 col-sm-12 col-xs-12 hidden-xs col pull-right hidden-print">
+                    <div id="lf_listmap_canvas" class="result-map" aria-hidden="true"></div>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12 ">
+                    <div class="result-content">
+                        {% for result in results %}
+                            {% if result.title != nil %}
+                            {% assign add_hlevel = 1 %}
+                            <h2 class="result-content-postype">{{ result.title }}</h2>
+                            {% endif %}
+                            {% for group in result.poses_by_city %}
+                                {% for pos in group.poses %}
+                                    <div class="row row-no-padding result-content-pos {% if result.has_page? %}has-page{% endif %}" data-url="{% if result.has_page? %}/{{ pos.identity }}{% endif %}">
+                                        <div class="result-content-pos-link {% if result.has_page? %}has-page{% endif %}">
+                                            {% if pos.display_distance2 %}
+                                            <div class="result-content-pos-distance medium">
+                                                {{ pos.distance | distance_with_unit }}
+                                            </div>
+                                            {% endif %}
+                                            <div class="result-content-pos-column-left">
+                                                <div class="result-content-pos-marker">
+                                                    <div class="result-content-pos-marker-number" aria-hidden="true">{{ pos.marker_id }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="result-content-pos-column-middle">
+                                                {% if result.has_page? %}<a href="/{{ pos.identity }}" class="result-content-pos-link {% if result.has_page? %}has-page{% endif %}"><h{{ 2 | plus:add_hlevel }} class="h4 result-content-pos-name">{{ pos.name }}</h{{ 2 | plus:add_hlevel }}></a>
+                                                {% else %}
+                                                <h{{ 2 | plus:add_hlevel }} class="h4 result-content-pos-name">{{ pos.name }}</h{{ 2 | plus:add_hlevel }}>
+                                                {% endif %}
+                                                <address class="result-content-pos-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                                                    <div itemprop="streetAddress">
+                                                        {{ pos.address1 }}
+                                                        {% if pos.address2 and pos.address2.size !=0 %}
+                                                        <br>{{ pos.address2 }}
+                                                        {% endif %}
+                                                    </div>
+                                                    <div>
+                                                        {% if zip_code =='zip' %}
+                                                            <span itemprop="postalCode">{{ pos.postal_code }}</span> <span  itemprop="addressLocality">{{ pos.city }}</span>
+                                                        {% else %}
+                                                            <span  itemprop="addressLocality">{{ pos.city }}</span>, <span  itemprop="addressRegion">{{ state.name }}</span> <span itemprop="postalCode">{{ pos.postal_code }}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </address>
+                                                {% if hide_phone == 'true' %}
+                                                {% assign phone_class = 'hide' %}
+                                                <div class="btn btn-info result-content-pos-showphone hidden-print hidden-xs" data-pos-id="{{ pos.marker_id }}">{{ 'frontoffice.pos.details.show_phone' | translate }}</div>
+                                                {% endif %}
+                                                {% if pos.tracked_phone and pos.tracked_phone.size != 0 %}
+                                                <div class="result-content-pos-phone hidden-xs print-show {{phone_class}}" data-pos-id="{{ pos.marker_id }}">
+                                                    <em class="fa fa-phone"></em>
+                                                    <span itemprop="telephone" class="bold">{{pos.tracked_phone}} </span>
+                                                    <span class="result-content-pos-phone-comment small">{{ pos.phone_comment }}</span>
+                                                </div>
+                                                {% elsif pos.phone and pos.phone.size != 0 %}
+                                                <div class="result-content-pos-phone hidden-xs print-show {{phone_class}}" data-pos-id="{{ pos.marker_id }}">
+                                                    <em class="fa fa-phone"></em>
+                                                    <span itemprop="telephone" class="bold">{{pos.phone}} </span>
+                                                    <span class="result-content-pos-phone-comment small">{{ pos.phone_comment }}</span>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        {% if hide_phone == 'true' %}
+                                        {% assign phone_class = 'hide' %}
+                                        <button class="btn btn-info btn-block result-content-pos-showphone hidden-print hidden-sm hidden-md hidden-lg" data-pos-id="{{ pos.marker_id }}">{{ 'frontoffice.pos.details.show_phone' | translate }}</button>
+                                        {% endif %}
+                                        {% if pos.tracked_phone and pos.tracked_phone.size != 0 %}
+                                        <a href="tel:{{pos.tracked_phone | remove:' '}}" class="result-content-pos-phone btn btn-default hidden-sm hidden-md hidden-lg print-hide {{phone_class}}" data-pos-id="{{ pos.marker_id }}">
+                                            <em class="fa fa-phone"></em>
+                                            <span itemprop="telephone" class="bold">{{pos.tracked_phone}} </span>
+                                            <span class="result-content-pos-phone-comment small">{{ pos.phone_comment }}</span>
+                                        </a>
+                                        {% elsif pos.phone and pos.phone.size != 0 %}
+                                        <a href="tel:{{pos.phone | remove:' ' }}" class="result-content-pos-phone btn btn-default hidden-sm hidden-md hidden-lg print-hide {{phone_class}}" data-pos-id="{{ pos.marker_id }}">
+                                            <em class="fa fa-phone"></em>
+                                            <span itemprop="telephone" class="bold">{{pos.phone}} </span>
+                                            <span class="result-content-pos-phone-comment small">{{ pos.phone_comment }}</span>
+                                        </a>
+                                        {% endif %}
+                                        <div class="result-content-pos-column-right hidden-print lf_poslink_links">
+                                            <div class="result-content-pos-locate hidden-xs text-center locate" data-marker-id="{{ pos.marker_id }}" aria-hidden="true">
+                                                <img src="{{ frontoffice.view_short_template_path }}/images/picto-locate.png" alt="{{ 'frontoffice.results.highlight_pos' | translate }}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% paginate total by 2 %}
+                {% if paginate and paginate.parts.size !=0 %}
+                <div class="result-pagination col-md-5 col-sm-12 col-xs-12 hidden-print">
+                    <ul class="result-pagination-content" id="lf_pagination">
+                        {% for part in paginate.parts %}
+                        {% if part.is_link %}
+                        <li class="result-pagination-content-list"><a href="{{ part.url }}" class="pagination-number"><span class="screen-reader-only">{{ 'frontoffice.results.pagination.title' | translate }}"</span>{{ part.label }}</a></li>
+                        {% elsif part.is_hellip %}
+                        <li class="result-pagination-content-list disabled"><span class="pagination-number">{{ part.label }}</span></li>
+                        {% else %}
+                        <li class="result-pagination-content-list active"><span class="pagination-number">{{ part.label }}</span></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endpaginate %}
+            </div>
+            {% endif %}
+            {% include 'eventsactu' with 'lf_detailed' %}
+            {% include 'eventsimg' with 'lf_small_picture,2' %}
+        </div>
+    </div>
+    <div class="container">
+        {% include 'citiesseo' %}
+        {% include 'copyright' %}
+    </div>
+</div>

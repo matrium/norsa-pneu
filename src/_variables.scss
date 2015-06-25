@@ -1,0 +1,149 @@
+//------------------------------------------------------------------
+// Variables
+//-------------------------------------------------------------------
+
+//-----Base-----//
+$base-font-size: .875em;
+$base-line-height: 1.428571429;
+$base-font-color: #333;
+
+
+//-----Padding-----//
+//>>For container, col, row (default 15px)
+$container-padding: 15px;
+
+
+//-----Breacrumb-----//
+$breadcrumb-color: #666;
+$breadcrumb-color-active: #666;
+
+
+//-----Link-----//
+$link-color: #0277bd;
+$link-color-hover: #0277bd;
+
+
+//-----Error404-----//
+$error-color: #b92a2a;
+
+
+//-----Border Radius-----//
+//>>For buttons, form-control, dropdown, modal, well, alert (default 4px)
+$border-radius: 0;
+
+
+//-----Result POS & MAP-----//
+$result-height-content: 650px;
+$result-color-background-hover: #e0e0e0;
+
+
+//-----Pagination-----//
+//>>Default
+$pagination-color-border: #fff;
+$pagination-color-background: #fff;
+$pagination-color-text: #0277bd;
+
+//>>Hover
+$pagination-color-border-hover: #0277bd;
+$pagination-color-background-hover: #0277bd;
+$pagination-color-text-hover: #fff;
+
+
+//-----Colors-----//
+//>>Text
+$white-color: #fff;
+$grey-color: #909298;
+$pink-color: #d51a66;
+$blue-color: #0277bd;
+$black-color: #492a3c;
+$green-color: #3c763d;
+$red-color: #a94442;
+$lightgrey-color: #e5e5e5;
+
+//>>Primary
+$primary-color-text: #333;
+$primary-color-title: #0277bd;
+$primary-color-border: #0277bd;
+
+//>>Secondary
+$secondary-color-text: #333;
+$secondary-color-title: #0277bd;
+$secondary-color-border: #0277bd;
+
+//>>Third
+$third-color-text: #333;
+$third-color-title: #0277bd;
+$third-color-border: #0277bd;
+
+//-----Dropdown-----//
+$dropdown-color-background-active: #0277bd;
+$dropdown-color-background-focus: #f5f5f5;
+$dropdown-color-text-hover: #fff;
+
+
+//-----Buttons-----//
+//>>Primary Button
+$primary-button-color-text: #fff;
+$primary-button-color-background: #0277bd;
+$primary-button-color-border: #0277bd;
+
+$primary-button-color-text-hover: $primary-button-color-text;
+$primary-button-color-background-hover: #128ad2;
+$primary-button-color-border-hover: #128ad2;
+
+$primary-button-color-text-active: $primary-button-color-text;
+$primary-button-color-background-active: #128ad2;
+$primary-button-color-border-active: #128ad2;
+
+//>>Default Button
+$default-button-color-text: #333;
+$default-button-color-background: #fff;
+$default-button-color-border: #ccc;
+
+$default-button-color-text-hover: $default-button-color-text;
+$default-button-color-background-hover: #ebebeb;
+$default-button-color-border-hover: #adadad;
+
+$default-button-color-text-active: $default-button-color-text;
+$default-button-color-background-active: $default-button-color-background-hover;
+$default-button-color-border-active: $default-button-color-border-hover;
+
+//>>Info button
+$info-button-color-text: #fff;
+$info-button-color-background: #d51a66;
+$info-button-color-border: #d51a66;
+
+$info-button-color-text-hover: $info-button-color-text;
+$info-button-color-background-hover: #f0307e;
+$info-button-color-border-hover: #f0307e;
+
+$info-button-color-text-active: $info-button-color-text;
+$info-button-color-background-active: $info-button-color-background-hover;
+$info-button-color-border-active: $info-button-color-border-hover;
+
+
+//-----Title-----//
+$h1-font-size: $base-font-size * 2.5;
+$h1-line-height: $h1-font-size * 1.5;
+$h1-margin-top: $h1-font-size / 2;
+$h1-margin-bottom: $h1-font-size / 2;
+
+$h2-font-size: $base-font-size * 2;
+$h2-line-height: $h2-font-size * 1.5;
+$h2-margin-top: $h2-font-size / 1.5;
+$h2-margin-bottom: $h2-font-size / 1.5;
+
+$h3-font-size: $base-font-size * 1.6;
+$h3-line-height: $h3-font-size * 1.5;
+$h3-margin-top: $h3-font-size / 1.5;
+$h3-margin-bottom: $h3-font-size / 1.5;
+
+$h4-font-size: $base-font-size * 1.3;
+$h4-line-height: $h4-font-size * 1.5;
+$h4-margin-top: $h4-font-size / 1.5;
+$h4-margin-bottom: $h4-font-size / 1.5;
+
+$h5-font-size: $base-font-size;
+$h5-line-height: $h5-font-size * 1.5;
+$h5-margin-top: $h5-font-size / 2;
+$h5-margin-bottom: $h5-font-size / 2;

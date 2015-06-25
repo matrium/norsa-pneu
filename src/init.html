@@ -1,0 +1,23 @@
+{% assign add_hlevel = 0 %}
+
+{% assign advanced_search = "SERVICES" %}
+
+{% assign events_in_tab = "lf_detailed" | split:"," %}
+
+{% assign hide_phone = "true" %}
+
+{% assign meta_title = page.title %}
+{% assign meta_description = page.description %}
+{% if content_category %}
+    {% if content_category.meta_title.size > 0 %}
+        {% assign meta_title = content_category.meta_title %}
+    {% endif %}
+    {% if content_category.meta_description.size > 0 %}
+        {% assign meta_description = content_category.meta_description %}
+    {% endif %}
+{% else %}
+    {% assign meta_title = page.title %}
+    {% assign meta_description = page.description %}
+{% endif %}
+
+{% assign cookie_law = 'true' %}

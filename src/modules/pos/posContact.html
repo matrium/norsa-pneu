@@ -1,0 +1,108 @@
+<h2 class="title h4">{{ 'frontoffice.pos.contact_request.title' | translate: "name",pos.name }}</h2>
+<p>{{ 'frontoffice.pos.contact_request.introduction' | translate: "name",pos.name }}</p>
+<form id="new_contact_request_form" method="POST" action="/action/contact_request.json" role="form">
+    <input class="pos_id" id="contact_request_form_point_of_sale_id" name="contact_request_form[point_of_sale_id]" type="hidden" value="{{pos.id}}" />
+    <input id="contact_request_form_st_lead_id" name="contact_request_form_st_lead_id" type="hidden" />
+    <div class="hidden">{{ leads.lead_origin.form_field }}</div>
+
+    <div class="form-group civilite">
+        <fieldset>
+            <label class="control-label full-width">{{ 'frontoffice.pos.contact_request.labels.salutation' | translate }}</label>
+            <div class="radio radio-inline">
+                <input type="radio" name="contact_request_form[salutation]" id="contact_request_form_salutationMlle" />
+                <label for="contact_request_form_salutationMlle">
+                    {{'frontoffice.pos.contact_request.labels.miss' | translate }}
+                </label>
+            </div>
+
+            <div class="radio radio-inline">
+                <input type="radio" name="contact_request_form[salutation]" id="contact_request_form_salutationMme" />
+                <label for="contact_request_form_salutationMme">
+                    {{'frontoffice.pos.contact_request.labels.missus' | translate }}
+                </label>
+            </div>
+
+            <div class="radio radio-inline">
+                <input type="radio" name="contact_request_form[salutation]" id="contact_request_form_salutationM" />
+                <label for="contact_request_form_salutationM">
+                    {{'frontoffice.pos.contact_request.labels.mister' | translate }}
+                </label>
+            </div>
+        </fieldset>
+    </div>
+    <div class="row pos-contactform-content-row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+            <label for="contact_request_form_first_name" class="control-label">
+                {{ 'frontoffice.pos.contact_request.labels.first_name' | translate }}
+            </label>
+            <input id="contact_request_form_first_name" class="form-control" name="contact_request_form[first_name]" type="text"
+                required
+                data-fv-notempty-message="{{'frontoffice.forms.error.mandatory' | translate}}"/>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+            <label for="contact_request_form_last_name" class="control-label">
+                {{ 'frontoffice.pos.contact_request.labels.last_name' | translate }}
+            </label>
+            <input id="contact_request_form_last_name" class="form-control" name="contact_request_form[last_name]" type="text"
+                required
+                data-fv-notempty-message="{{'frontoffice.forms.error.mandatory' | translate}}"
+                data-fv-different="true"
+                data-fv-different-field="contact_request_form[first_name]"
+                data-fv-different-message="{{'frontoffice.forms.error.lastname' | translate}}" />
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+            <label for="contact_request_form_email" class="control-label">
+                {{ 'frontoffice.pos.contact_request.labels.email' | translate }}
+            </label>
+            <input id="contact_request_form_email" class="form-control" name="contact_request_form[email]" type="email"
+                required
+                data-fv-notempty-message="{{'frontoffice.forms.error.mandatory' | translate}}"
+                data-fv-emailaddress="true"
+                data-fv-emailaddress-message="{{'frontoffice.forms.error.email' | translate}}" />
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+            <label for="contact_request_form_phone" class="control-label">
+                {{ 'frontoffice.pos.contact_request.labels.phone' | translate }}
+            </label>
+            <input id="contact_request_form_phone" class="form-control" name="contact_request_form[phone]" type="tel"/>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+            <label for="contact_request_form_city" class="control-label">
+                {{ 'frontoffice.pos.contact_request.labels.city' | translate}}
+            </label>
+            <input id="contact_request_form_city" class="form-control" name="contact_request_form[city]" type="text"/>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+            <label for="contact_request_form_postal_code" class="control-label">
+                {{ 'frontoffice.pos.contact_request.labels.postal_code' | translate }}
+            </label>
+            <input id="contact_request_form_postal_code" class="form-control" name="contact_request_form[postal_code]" type="text"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label for="contact_request_form_message" class="control-label">
+                {{ 'frontoffice.pos.contact_request.labels.message' | translate }}
+            </label>
+            <textarea id="contact_request_form_message" class="form-control" name="contact_request_form[message]"></textarea>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="checkbox pull-right">
+                <input type="checkbox" name="contact_request_form[optin]" value="1" id="contact_request_form_optin"/>
+                <label for="contact_request_form_optin" id="contact_request_form_optin_label">
+                     {{ 'frontoffice.pos.contact_request.labels.optin' | translate }}
+                </label>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="alert success_request alert-success">
+            </div>
+        </div>
+        <div class="form-group col-xs-12 text-center inherit">
+            <input class="btn btn-primary" type="submit" value="{{ 'frontoffice.pos.contact_request.submit' | translate }}" />
+        </div>
+    </div>
+</form>

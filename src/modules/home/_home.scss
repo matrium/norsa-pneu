@@ -1,0 +1,75 @@
+//------------------------------------------------------------------
+// Home
+//------------------------------------------------------------------
+
+@mixin home-search-title($fontsize, $color:#fff, $shadow-width:0, $shadow-color:transparent) {
+    color: $color;
+    text-align: center;
+    font-weight: bold;
+    font-size: $fontsize;
+    text-shadow: $shadow-width $shadow-width $shadow-color;
+}
+
+.home {
+    &-search {
+        position: relative;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+
+        &-top {
+            padding: 40px 35px;
+
+            @media (min-width: 768px) {
+                padding: 130px 20px;
+                height: 400px;
+            }
+
+            &-title {
+                @include home-search-title (28px, $white-color, 1px, $blue-color);
+
+                margin: 0;
+                text-transform: uppercase;
+
+                @media (min-width: 768px){
+                    font-size: 44px;
+                }
+            }
+
+            &-subtitle {
+                @include home-search-title (18px, $white-color, 1px, $blue-color);
+
+                @media (min-width: 768px){
+                    font-size: 24px;
+                }
+            }
+        }
+
+        &-nav {
+            background-color: rgba(255, 255, 255, .8);
+            padding: 10px 0;
+
+            @media (min-width: 768px) {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                padding: 10px 20px;
+            }
+        }
+    }
+
+    .typeahead-container {
+        position: relative;
+        z-index: 2;
+        background-color: $white-color;
+    }
+
+    .typeahead-result {
+
+        > .dropdown-menu {
+            display: block;
+            width: 100%;
+        }
+    }
+}

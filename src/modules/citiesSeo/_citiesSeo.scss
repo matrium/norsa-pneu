@@ -1,0 +1,41 @@
+//------------------------------------------------------------------
+// Cities Seo
+//------------------------------------------------------------------
+
+.citiesseo {
+
+    &-column {
+        &:nth-child(2n+1) {
+            clear: both;
+        }
+
+        @media (min-width: 768px) {
+            &:nth-child(2n+1) {
+                clear: none;
+            }
+
+            &:nth-child(3n+1) {
+                clear: both;
+            }
+        }
+
+        @media (min-width: 992px) {
+            &:nth-child(3n+1) {
+                clear: none;
+            }
+
+            &:nth-child(4n+1) {
+                clear: both;
+            }
+        }
+    }
+
+    &-name {
+        margin-bottom: 0;
+    }
+
+    &-cities {
+        padding: 0;
+        list-style-type: none;
+    }
+}

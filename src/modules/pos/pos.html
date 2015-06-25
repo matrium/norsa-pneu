@@ -1,0 +1,277 @@
+{% for event_category in event_categories %}
+    {% assign my_events = events["lf_detailed"].all_events.collection %}
+{% endfor %}
+
+{% assign content_categories = '' %}
+{% for category in pos_drop.content_categories %}
+    {% assign content_categories = 'true' %}
+{% endfor %}
+
+{% assign state = pos.world_nodes | last %}
+{% assign zip_code = 'frontoffice.custom.zip_code.format' | translate %}
+
+<div class="pos" itemscope itemtype="http://schema.org/LocalBusiness">
+    <div class="container">
+        {% include 'breadcrumb' %}
+        {% include 'newsearch' %}
+        <div class="pos-searchform">
+            {% include 'searchform' %}
+        </div>
+    </div>
+    <div class="pos-content">
+        <div class="background-grey">
+            <div class="container">
+                <img src="{{ frontoffice.view_short_template_path }}/images/logo-print.png" class="pos-print-logo" alt="{{ 'frontoffice.pos.directions.print_button' | translate }}">
+                {% include 'eventsslider' with 'lf_big_picture' %}
+                {% include 'eventsimg' with 'lf_big_picture' %}
+                <div class="pos-background pos-background-first relative print-container">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-12 vcenter pos-content-print">
+                            <h1 class="h2">{{pos.name}}</h1>
+                            {% if pos.nearby_big_city_not_blank and pos.nearby_big_city != pos.city %}
+                            <div class="pos-content-nearbycity">{{'frontoffice.pos.nearby_big_city.label' | translate }} {{ pos.nearby_big_city }}</div>
+                            {% endif %}
+                            <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="pos-content-address">
+                                <div itemprop="streetAddress">
+                                {{ pos.address1 }}<br>
+                                {% if pos.address2 and pos.address2.size !=0  %}
+                                {{ pos.address2 }}<br>
+                                {% endif %}
+                                </div>
+                                <div>
+                                    {% if zip_code =='zip' %}
+                                        <span itemprop="postalCode">{{ pos.postal_code }}</span> <span  itemprop="addressLocality">{{ pos.city }}</span>
+                                    {% else %}
+                                        <span  itemprop="addressLocality">{{ pos.city }}</span>, <span  itemprop="addressRegion">{{ state.name }}</span> <span itemprop="postalCode">{{ pos.postal_code }}</span>
+                                    {% endif %}
+                                </div>
+                            </address>
+
+                            {% if hide_phone == 'true' %}
+                            {% assign phone_class = 'hide' %}
+                            <button class="btn btn-info pos-content-showphone hidden-print">{{ 'frontoffice.pos.details.show_phone' | translate }}</button>
+                            {% endif %}
+                            {% if pos.tracked_phone and pos.tracked_phone.size != 0 %}
+                            <div class="pos-content-phone bold {{phone_class}}">
+                                <span class="pos-content-phone-label"><em class="fa fa-phone"></em></span>
+                                <span itemprop="telephone">{{pos.tracked_phone}} </span>
+                                <span class="pos-content-phone-comment small">{{ pos.phone_comment }}</span>
+                            </div>
+                            {% elsif pos.phone and pos.phone.size != 0 %}
+                            <div class="pos-content-phone bold {{phone_class}}">
+                                <span class="pos-content-phone-label"><em class="fa fa-phone"></em></span>
+                                <span itemprop="telephone">{{pos.phone}} </span>
+                                <span class="pos-content-phone-comment small">{{ pos.phone_comment }}</span>
+                            </div>
+                            {% endif %}
+
+                            {% if pos.fax and pos.fax.size != 0 %}
+                            <div class="pos-content-fax bold {{phone_class}}">
+                                <span class="pos-content-fax-label"><em class="fa fa-fax"></em></span>
+                                <span itemprop="faxNumber">{{pos.fax}}</span>
+                            </div>
+                            {% endif %}
+                            <div class="hidden-print">
+                                {% if frontoffice.use_newsletter_request %}
+                                <div class="margin-top-sm margin-bottom-sm pos-content-cta padding-right-sm no-padding-xs">
+                                    <a href="#" data-toggle="modal" data-target="#pos-newsletterrequest"><em class="fa fa-envelope-o"></em> {{ 'frontoffice.pos.newsletter_request.title' | translate }}</a>
+                                </div>
+                                {% endif %}
+                                {% if frontoffice.use_address_request %}
+                                <div class="margin-top-sm margin-bottom-sm pos-content-cta padding-right-sm padding-left-sm no-padding-xs">
+                                    <a href="#" data-toggle="modal" data-target="#pos-addressrequest"><em class="fa fa-paper-plane-o"></em> {{ 'frontoffice.pos.address_request.title' | translate }}</a>
+                                </div>
+                                {% endif %}
+                                <div class="margin-top-sm margin-bottom-sm pos-content-cta no-border padding-left-sm no-padding-xs" id="lf_printbutton">
+                                    <a href="javascript:window.print()" class="pos-content-cta-print"><em class="fa fa-print"></em> <span class="hidden-sm">{{ 'frontoffice.pos.print' | translate }}</span></a>
+                                </div>
+                            </div>
+                        </div><!--
+                        --><div class="col-md-4 col-sm-4 col-xs-12 vcenter pos-content-print pos-content-print">
+                            <div id="pos-content-carousel" class="pos-content-carousel carousel slide" aria-hidden="true">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    {% for thumbnail in pos_drop.take_all_thumbnails %}
+                                        <div class="item">
+                                            <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ thumbnail.current_image }}" alt="{{ pos.name }} - {{ pos.city }}" rel="{{ thumbnail.current_image }}" />
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Carousel nav -->
+                                {% if pos_drop.take_thumbnails.size > 1 %}
+                                    <a class="left carousel-control" href="#pos-content-carousel" data-slide="prev" aria-hidden="true">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                    <a class="right carousel-control" href="#pos-content-carousel" data-slide="next" aria-hidden="true">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% include 'poshours' %}
+                </div>
+            </div>
+        </div>
+        <div class="background-grey">
+            <div class="container hidden-print">
+                <div class="pos-content-tabs">
+                    <div class="container">
+                        <div class="row row-no-padding pos-content-tabs-row">
+                            {% if pos.description and pos.description.size != 0 %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 col-xs-5 active" data-id="tabs-presentation">{{ 'frontoffice.pos.presentation.tab_title' | translate }}</h2>
+                            {% endif %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 col-xs-5" data-id="tabs-acces">{{ 'frontoffice.pos.additional_tabs.tab4' | translate}}</h2>
+                            {% if pos.use_form %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-contact">{{ 'frontoffice.pos.additional_tabs.tab3' | translate }}</h2>
+                            {% endif %}
+                            {% if my_events.size > 0 %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-actualites">{{ 'frontoffice.pos.additional_tabs.tab7' | translate }}</h2>
+                            {% endif %}
+                            {% if smart_tags.products and smart_tags.products.size != 0 %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-products">{{ 'frontoffice.pos.additional_tabs.tab1' | translate }}</h2>
+                            {% endif %}
+                            {% if smart_tags.services and smart_tags.services.size != 0 %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-services">{{ 'frontoffice.pos.additional_tabs.tab2' | translate }}</h2>
+                            {% endif %}
+                            {% if content_categories == 'true' %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-categories">{{ 'frontoffice.pos.additional_tabs.tab6' | translate }}</h2>
+                            {% endif %}
+                            <div class="dropdown col-xs-2 visible-xs-block">
+                                <div class="title h4 pos-content-tabs-title dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="dropdownTabs" role="menu"><em class="fa fa-bars"></em></div>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownTabs">
+                                    {% if pos.use_form %}
+                                    <li role="presentation" data-id="tabs-contact" class="title pos-content-tabs-item">
+                                        <a role="menuitem" tabindex="-1" href="#">{{ 'frontoffice.pos.additional_tabs.tab3' | translate }}</a>
+                                    </li>
+                                    {% endif %}
+                                    {% if my_events.size > 0 %}
+                                    <li role="presentation" data-id="tabs-actualites" class="title pos-content-tabs-item">
+                                        <a role="menuitem" tabindex="-1" href="#">{{ 'frontoffice.pos.additional_tabs.tab7' | translate }}</a>
+                                    </li>
+                                    {% endif %}
+                                    {% if smart_tags.products and smart_tags.products.size != 0 %}
+                                    <li role="presentation" data-id="tabs-products" class="title pos-content-tabs-item">
+                                        <a role="menuitem" tabindex="-1" href="#">{{ 'frontoffice.pos.additional_tabs.tab1' | translate }}</a>
+                                    </li>
+                                    {% endif %}
+                                    {% if smart_tags.services and smart_tags.services.size != 0 %}
+                                    <li role="presentation" data-id="tabs-services" class="title pos-content-tabs-item">
+                                        <a role="menuitem" tabindex="-1" href="#">{{ 'frontoffice.pos.additional_tabs.tab2' | translate }}</a>
+                                    </li>
+                                    {% endif %}
+                                    {% if content_categories == 'true' %}
+                                    <li role="presentation" data-id="tabs-categories" class="title pos-content-tabs-item">
+                                        <a role="menuitem" tabindex="-1" href="#">{{ 'frontoffice.pos.additional_tabs.tab6' | translate }}</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if pos.description and pos.description.size != 0 %}
+            <div class="container hidden-print" id="tabs-presentation">
+                <div class="pos-background">
+                    {% include 'pospresentation' %}
+                </div>
+            </div>
+            {% endif %}
+            {% if pos.use_form %}
+            <div class="container hidden-print" id="tabs-contact">
+                <div class="pos-background relative" id="lf_contactform">
+                    {% include 'poscontact' %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="container" id="tabs-acces">
+                <div class="pos-background print-container">
+                    {% include 'posaccess' %}
+                </div>
+            </div>
+            {% if my_events.size > 0 %}
+            <div class="container hidden-print" id="tabs-actualites">
+                {% include 'eventsactu' with 'lf_detailed' %}
+            </div>
+            {% endif %}
+            {% if smart_tags.products and smart_tags.products.size != 0 %}
+            <div class="container hidden-print" id="tabs-products">
+                <div class="pos-background">
+                    {% include 'posproducts' %}
+                </div>
+            </div>
+            {% endif %}
+            {% if smart_tags.services and smart_tags.services.size != 0 %}
+            <div class="container hidden-print" id="tabs-services">
+                <div class="pos-background">
+                    {% include 'posservices' %}
+                </div>
+            </div>
+            {% endif %}
+            {% if content_categories == 'true' %}
+            <div class="container hidden-print" id="tabs-categories">
+                <div class="pos-background">
+                    {% include 'poscategories' %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="container hidden-print">
+                {% include 'eventsimg' with 'lf_small_picture,2' %}
+            </div>
+        </div>
+    </div>
+
+    {% if frontoffice.use_newsletter_request %}
+    <!-- Newsletter form (Modal) -->
+    <div class="modal fade" id="pos-newsletterrequest" tabindex="-1" role="dialog" aria-labelledby="pos-newsletterrequest-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="modal-title title" id="pos-newsletterrequest-title">{{ 'frontoffice.pos.newsletter_request.title' | translate }}</div>
+                </div>
+                <div class="modal-body" id="lf_newsletter">
+                    {% include 'posnewsletter' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if frontoffice.use_address_request %}
+    <!-- Address request form (Modal) -->
+    <div class="modal fade" id="pos-addressrequest" tabindex="-1" role="dialog" aria-labelledby="pos-addressrequest-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="modal-title title" id="pos-addressrequest-title">{{ 'frontoffice.pos.address_request.title' | translate }}</div>
+                </div>
+                <div class="modal-body" id="lf_coordinatesrequest">
+                    {% include 'posaddressrequest' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Calculate itinerary (Modal) -->
+    <div class="modal fade" id="pos-itinerary" tabindex="-1" role="dialog" aria-labelledby="pos-itinerary-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="modal-title title" id="pos-itinerary-title">{{ 'frontoffice.pos.directions.get_directions' | translate: "name", pos.name }}</div>
+                </div>
+                <div class="modal-body">
+                    {% include 'positinerary' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

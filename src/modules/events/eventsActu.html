@@ -1,0 +1,47 @@
+{% assign category_name = events[eventsactu] %}
+{% if events.all_by_category %}
+
+<!-- Detailled event -->
+<div class="{{eventsactu}} eventsactu hidden-print">
+    <h{{ 2 | plus:add_hlevel }} class="eventsactu-title title h4">{{ events.category_label }}</h{{ 2 | plus:add_hlevel }}>
+    {% for event in events.all_by_category %}
+    <div class="eventsactu-content lf_event">
+        <div class="{{ event.class_name }} row">
+            <div class="col-md-4 col-sm-5 col-xs-12 vcenter eventsactu-content-media">
+                {% if event.media? %}
+                    {% if event.pdf? %}
+                        <a href="{{ event.pdf }}" class="eventsactu-content-media-pdf eventpdf" data-event-id="{{ event.id }}" data-event-name="{{event.name}}"  target="_blank" aria-hidden="true">
+                            <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" class="eventsactu-content-media-img img-before-loading" data-src="{{ event.media }}" alt="{{ event.pdf_display_name }}"/>
+                        </a>
+                    {% elsif event.url? %}
+                        <a href="{{ event.url }}" class="eventsactu-content-media-link" data-event-id="{{ event.id }}" data-event-name="{{event.name}}" {%if event.open_link_in_a_new_window == 'true' %}target="_blank"{% endif %} aria-hidden="true">
+                            <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" class="eventsactu-media-img img-before-loading" data-src="{{ event.media }}" alt="{{ event.url_text }}"/>
+                        </a>
+                    {% else %}
+                        <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" class="eventsactu-media-img img-before-loading" data-src="{{ event.media }}" alt="{{ event.name}}" aria-hidden="true"/>
+                    {% endif %}
+                {% endif %}
+            </div><div class="col-md-8 col-sm-7 col-xs-12 vcenter eventsactu-content-body">
+                <h{{ 3 | plus:add_hlevel }} class="eventsactu-content-body-title title media-heading">{{ event.name }}</h{{ 3 | plus:add_hlevel }}>
+                <span class="eventsactu-content-body-date medium bold">{{ event.display_from_thru_date }}</span>
+                <p class="eventsactu-content-body-description text-justify">{{ event.text }}</p>
+                {% if event.url? and event.url_text and event.url_text.size != 0 %}
+                <a href="{{ event.url }}" class="eventsactu-content-body-link" {%if event.open_link_in_a_new_window == 'true' %}target="_blank"{% endif %} data-event-id="{{ event.id }}" data-event-name="{{event.name}}">
+                    <em class="fa fa-plus-square-o"></em> {{ event.url_text }}
+                </a>
+                {% endif %}
+                {% if event.pdf? and  event.pdf_display_name != "" %}
+                <a href="{{ event.pdf }}" class="eventsactu-content-body-pdf eventpdf" data-event-id="{{ event.id }}" data-event-name="{{event.name}}" target="_blank" >
+                    <em class="fa fa-file-pdf-o"></em> {{ event.pdf_display_name }}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% unless footerlocal_page == 'index' or footerlocal_page == 'pos' %}
+    {% assign add_hlevel = add_hlevel | minus:1 %}
+{% endunless %}

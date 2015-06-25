@@ -1,0 +1,41 @@
+//------------------------------------------------------------------
+// CookieLaw
+//------------------------------------------------------------------
+
+.cookielaw {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    background: #fefbc0;
+    padding: 10px;
+    width: 100%;
+    color: #8a6d3b;
+    font: 12px/18px Arial, Helvetica, sans-serif;
+
+    &-message {
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+
+        p {
+            margin: 0;
+        }
+
+        a {
+            text-decoration: underline;
+            color: #8a6d3b;
+        }
+
+        &-close {
+            float: right;
+            margin-top: -18px;
+
+            a {
+                text-decoration: none;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+    }
+}

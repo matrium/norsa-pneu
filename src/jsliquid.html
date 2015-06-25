@@ -1,0 +1,208 @@
+{% if frontoffice.map_api contains "google" or frontoffice.map_api contains "google_premier" or frontoffice.map_api contains "google_china" %}
+    {% assign googlemap = 'active' %}
+{% endif %}
+
+<script>
+    {{ active_markers }}
+
+    {% if page.type == 'pos' or page.type == 'other' %}
+        var posMarkerCoordinates = { lat:{{ pos.lat }}, lng:{{ pos.lng }} };
+    {% endif %}
+
+    $(document).ready(function() {
+        // Geolocation
+        function errorfunction(error) {
+            switch (error.code) {
+                case error.TIMEOUT:
+                    break;
+                case error.PERMISSION_DENIED:
+                    break;
+            }
+        }
+
+        function successfunction(position) {
+            var url = '{{ search_geolocation_url }}' + '?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude;
+            window.location.href = url;
+        }
+
+        $('.searchform-geoloc, .home-search-nav-geoloc-button').click(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(successfunction, errorfunction, {
+                    maximumAge: 50000,
+                    timeout: 20000
+                });
+            }
+        });
+
+        $('.result-content-pos-locate').click(function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var markerId = $(this).data('marker-id');
+            app.mapMarkers.locateOnMap(markerId);
+            {% if googlemap == 'active' %}
+            lf.app.listMap.markersByIndex[markerId].popup.setOptions({
+                pixelOffset: new google.maps.Size(-1, -50)
+            });
+            {% endif %}
+        });
+
+        $('.result-content-pos').click(function(e) {
+            e.preventDefault();
+            if ($(this).data("url")!='') window.location.href=$(this).data("url");
+        });
+
+        {% if googlemap == 'active' %}
+        $('#lf_listmap_canvas').on('lf.mapReady', function() {
+            showPosInList = function(ev) {
+                ev.data.popup.setOptions({
+                    pixelOffset: new google.maps.Size(-1, -50)
+                });
+            };
+
+            for (var keyActive in lf.app.listMap.activeMarkers) {
+                marker = lf.app.listMap.activeMarkers[keyActive];
+                if (typeof marker === 'object') {
+                    marker.bind('click', marker, showPosInList);
+                }
+            }
+            for (var keyInactive in lf.app.listMap.inactiveMarkers) {
+                marker = lf.app.listMap.inactiveMarkers[keyInactive];
+                if (typeof marker === 'object') {
+                    marker.bind('click', marker, showPosInList);
+                }
+            }
+        });
+        {% endif %}
+
+        $('#new_address_request_form').formValidation({
+            framework: 'bootstrap',
+            fields: {
+                email: {
+                    selector: '#address_request_form_email',
+                    validators: {
+                        notEmpty: {
+                            message: '{{"frontoffice.forms.error.mandatory" | translate }}'
+                        },
+                        emailAddress: {
+                            message: '{{"frontoffice.forms.error.email" | translate }}'
+                        }
+                    }
+                },
+                sms: {
+                    selector: '#address_request_form_sms',
+                    validators: {
+                        phone: {
+                        // Refers the input with name=countryCode, the hidden select we created to store the selected country in ISO-3166 format.
+                            country: 'countryCode',
+                            message: '{{"frontoffice.forms.error.phone" | translate }}'
+                        },
+                        notEmpty: {
+                            message: '{{"frontoffice.forms.error.onefieldrequired" | translate }}'
+                        }
+                    }
+                }
+            }
+        })
+        .on('keyup', '#address_request_form_email, #address_request_form_sms', function() {
+            var email = $('#address_request_form_email').val(),
+                sms   = $('#address_request_form_sms').val(),
+                fv    = $('#new_address_request_form').data('formValidation');
+
+            switch ($(this).attr('id')) {
+                // User is focusing the email field
+                case 'address_request_form_email':
+                    fv.enableFieldValidators('sms', email === '').revalidateField('sms');
+
+                    if (email && fv.getOptions('email', null, 'enabled') === false) {
+                        fv.enableFieldValidators('email', true).revalidateField('email');
+                    } else if (email === '' && sms !== '') {
+                        fv.enableFieldValidators('email', false).revalidateField('email');
+                    }
+                    break;
+
+                // User is focusing the sms field
+                case 'address_request_form_sms':
+                    if (sms === '') {
+                        fv.enableFieldValidators('email', true).revalidateField('email');
+                    } else if (email === '') {
+                        fv.enableFieldValidators('email', false).revalidateField('email');
+                    }
+
+                    if (sms && email === '' && fv.getOptions('sms', null, 'enabled') === false) {
+                        fv.enableFieldValidators('sms', true).revalidateField('sms');
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        })
+        .on('success.form.fv', function() {
+            return false;
+        });
+    });
+</script>
+
+<script>
+
+    // Add a script element as a child of the body
+    var eventPosId = '';
+    var eventPage = '{{ footerlocal_page }}';
+    {% if footerlocal_page == 'point_of_sale' %} var eventPosId = '{{ pos.id }}';  {% endif %}
+    var leadtime = '';
+    {% if footerlocal_page == 'point_of_sale' %}
+        var eventPosId = '{{ pos.id }}';
+        {% if pos.use_form %}
+            var leadtime = new Date().getTime();
+            $("#contact_request_form_st_lead_id").attr("value",leadtime);
+        {% endif %}
+    {% endif %}
+
+    function downloadJSAtOnload_eGA() {
+        var element = document.createElement("script");
+        element.src = "/assets/frontoffice_events_ga.js";
+        element.onload = function() {
+            {% if footerlocal_page == 'point_of_sale' %}
+            gaBindEventTracking(".pos-access-map-button", 'click', 'Driving', 'Click', eventPosId);
+            gaBindEventTracking(".pos-content-tabs-title", 'click', 'Tabs', 'Click', eventPosId);
+            {% endif %}
+            gaBindEventTracking(".pos-content-showphone",'click','ShowPhone', 'Click', '{{ pos.id }}');
+        };
+        document.body.appendChild(element);
+    }
+    // Check for browser support of event handling capability
+    if (window.addEventListener){
+        window.addEventListener("load", downloadJSAtOnload_eGA, false);
+    }
+    else if (window.attachEvent){
+        window.attachEvent("onload", downloadJSAtOnload_eGA);
+    }
+    else {
+        window.onload = downloadJSAtOnload_eGA;
+    }
+</script>
+<script>
+    function downloadJSAtOnload() {
+        {% if frontoffice.homepage_illustration_url and frontoffice.homepage_illustration_url.size != 0 %}
+        $(".home-search").css("background-image","url({{ frontoffice.homepage_illustration_url }})");
+        {% endif %}
+        $(".lf_event img").each(function() {
+            $(this).attr("src",$(this).data("src")).removeClass("img-before-loading");
+        });
+        $(".pos-content-carousel img,.pos-products img,.pos-services img, .pos-categories img").each(function() {
+            $(this).attr("src",$(this).data("src")).removeClass("img-before-loading");
+        })
+    }
+
+    // Check for browser support of event handling capability
+    if (window.addEventListener){
+        window.addEventListener("load", downloadJSAtOnload, false);
+    }
+    else if (window.attachEvent){
+        window.attachEvent("onload", downloadJSAtOnload);
+    }
+    else {
+        window.onload = downloadJSAtOnload;
+    }
+</script>
+

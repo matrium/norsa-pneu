@@ -1,0 +1,319 @@
+//------------------------------------------------------------------
+// Results
+//------------------------------------------------------------------
+
+.result {
+    &-searchform {
+        display: none;
+        margin-bottom: 8px;
+
+        @media (min-width: 768px) {
+            display: block;
+        }
+    }
+
+    &-top {
+        background-color: $grey-color;
+        color: $white-color;
+
+        &-title {
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+
+        &-subtitle {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+    }
+
+    &-map {
+        height: $result-height-content / 2;
+
+        @media (min-width: 992px) {
+            height: $result-height-content;
+        }
+    }
+
+    &-background {
+        background-color: $lightgrey-color;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    &-content {
+        margin-top: 0;
+        margin-bottom: 12px;
+        padding-right: 0;
+        max-height: $result-height-content;
+        overflow-y: auto;
+
+        @media (min-width: 992px) {
+            padding-right: 10px;
+        }
+
+        @media (min-width: 768px) and (max-width: 992px) {
+            margin-top: 10px;
+        }
+
+        &-city:first-child {
+            margin: 0;
+        }
+
+        &-postype {
+            margin-top: 0;
+            margin-bottom: 10px;
+            background-color: #888;
+            padding: 5px 0;
+            text-align: center;
+            color: #fff;
+        }
+
+        &-pos {
+            position: relative;
+            margin-bottom: 10px;
+            background-color: #fff;
+            padding: 10px;
+
+            &.has-page:hover {
+                background-color: $result-color-background-hover;
+                cursor: pointer;
+            }
+
+            &-link {
+                display: block;
+                cursor: default;
+                color: inherit;
+
+                &.has-page {
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: inherit;
+                }
+
+                &.has-page:focus {
+                    text-decoration: none;
+                    color: inherit;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &-locate {
+                cursor: pointer;
+            }
+
+            &-column {
+
+                &-left {
+                    display: block;
+                    position: absolute;
+                }
+
+                &-middle {
+                    display: block;
+                    padding-right: 65px;
+                    padding-left: 50px;
+                }
+
+                &-right {
+                    display: block;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
+            }
+
+            &-name {
+                margin: 0;
+                font-weight: bold;
+            }
+
+            &-address {
+                margin: 0;
+            }
+
+            &-picto {
+                &-img {
+                    width: 30px;
+
+                    &:first-child {
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            &-marker {
+                background-image: url('../images/marker/marker.png');
+                background-repeat: no-repeat;
+                background-position: left;
+                width: 40px;
+                height: 60px;
+
+                &-number {
+                    padding-top: 9px;
+                    width: 40px;
+                    text-align: center;
+                    font-size: 16px;
+                    font-weight: bold;
+
+                }
+            }
+
+            &-distance {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 65px;
+                text-align: right;
+                font-weight: bold;
+
+                @media (min-width: 768px) {
+                    top: inherit;
+                    bottom: 10px;
+                }
+            }
+
+            &-showphone {
+                margin-top: 10px;
+
+                @media (min-width: 768px) {
+                    margin-top: 0;
+                }
+            }
+
+            &-phone {
+                margin-top: 10px;
+
+                @media (min-width: 768px) {
+                    margin-top: 0;
+                }
+
+                a {
+                    display: block;
+                    color: $base-font-color;
+                    font-weight: bold;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &-pagination {
+        clear: both;
+        margin-bottom: 10px;
+        height: 33px;
+        text-align: center;
+        font-weight: bold;
+
+        &-content {
+            display: inline-block;
+            margin: 0;
+
+            &-list {
+                float: left;
+                margin: 0 3px;
+                border: 0;
+                background-color: $pagination-color-background;
+                padding: 6px 0;
+                list-style-type: none;
+
+                .pagination-number {
+                    background-color: $pagination-color-background;
+                    padding: 8px 14px;
+                    color: $blue-color;
+                }
+
+                &.active {
+                    background-color: $pagination-color-background-hover;
+
+                    .pagination-number {
+                        background-color: $pagination-color-background-hover;
+                        color: $pagination-color-text-hover;
+                    }
+                }
+
+                &:not(.disabled):hover {
+                    background-color: $pagination-color-background-hover;
+                    cursor: pointer;
+
+                    .pagination-number {
+                        background-color: $pagination-color-background-hover;
+                        cursor: pointer;
+                        text-decoration: none;
+                        color: $pagination-color-text-hover;
+                    }
+                }
+
+                &.disabled:hover {
+
+                    .pagination-number {
+                        background-color: $pagination-color-background;
+                        cursor: default;
+                    }
+                }
+            }
+        }
+    }
+
+    .lf_marker {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+
+        .active_number {
+            @include marker-display;
+            background-image: url('../images/marker/marker.png');
+        }
+
+        .inactive_number {
+            @include marker-display;
+            background-image: url('../images/marker/marker-inactive.png');
+        }
+
+        .active_cluster {
+            @include marker-display(0);
+            background-image: url('../images/marker/cluster.png');
+        }
+
+        .inactive_cluster {
+            @include marker-display(0);
+            background-image: url('../images/marker/cluster-inactive.png');
+        }
+
+        //For Bing
+        &.active_number {
+            @include marker-display;
+            background-image: url('../images/marker/marker.png');
+        }
+
+        &.inactive_number {
+            @include marker-display;
+            background-image: url('../images/marker/marker-inactive.png');
+        }
+
+        &.cluster {
+            @include marker-display(0);
+            background-image: url('../images/marker/cluster.png');
+        }
+
+        &.inactive_cluster {
+            @include marker-display(0);
+            background-image: url('../images/marker/cluster-inactive.png');
+        }
+
+        > div {
+            top: 13px !important;
+            color: $black-color !important;
+        }
+
+        img {
+            display: none;
+        }
+    }
+}

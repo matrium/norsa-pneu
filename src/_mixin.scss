@@ -1,0 +1,18 @@
+//------------------------------------------------------------------
+// Mixin
+//------------------------------------------------------------------
+
+@mixin vcenter {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+}
+
+@mixin marker-display($text-indent: 0) {
+    width: 40px !important;
+    height: 60px;
+    display: block;
+    text-indent: $text-indent;
+    padding-top: 9px;
+    color: $base-font-color;
+}

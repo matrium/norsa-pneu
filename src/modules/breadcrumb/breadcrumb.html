@@ -1,0 +1,30 @@
+<ol class="breadcrumb hidden-print" id="lf_breadcrumbs">
+    {% for breadcrumb in breadcrumbs.all %}
+        {% if forloop.last %}
+            <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="#" itemprop="url">
+                    <span itemprop="title">{{ breadcrumb.text }}</span>
+                </a>
+            </li>
+        {% elsif forloop.first %}
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                {% if frontoffice.corporate_website and frontoffice.corporate_website.size != 0 %}
+                <a href="http://{{ frontoffice.corporate_website }}" itemprop="url">
+                    <span itemprop="title">{{ breadcrumb.text }}</span>
+                </a>
+                {% else %}
+                <a href="{{ breadcrumb.url }}" itemprop="url">
+                    <span itemprop="title">{{ breadcrumb.text }}</span>
+                </a>
+                {% endif %}
+            </li>
+        {% else %}
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="{{ breadcrumb.url }}" itemprop="url">
+                    <span itemprop="title" class="hidden-xs">{{ breadcrumb.text }}</span>
+                    <span class="hidden-sm hidden-md hidden-lg">...</span>
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ol>

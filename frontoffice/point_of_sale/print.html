@@ -1,0 +1,113 @@
+<!-- Print page header -->
+<div class="row print-header">
+    <img src="{{ frontoffice.view_short_template_path }}/images/logo_print.png" />
+    <div id="lf_printbutton">
+        <a href="javascript:void(0)" class="print-button btn btn-default primary-btn">
+            {{ 'frontoffice.print.print' | translate }}
+        </a>
+    </div>
+</div>
+
+<!-- Print page point of sale infos -->
+<div class="row">
+    <div class="col-xs-12">
+        <h1 class="pos-detail-store-name">{{ pos.name }}</h1>
+    </div>
+
+    <div class="col-xs-6 pos-detail-store-info">
+        <address>
+            {{ pos.address1 }}<br>
+            {% if pos.address2 and pos.address2.size !=0  %}
+                {{ pos.address2 }}<br>
+            {% endif %}
+            {{ pos.postal_code }} {{ pos.city }}
+        </address>
+
+        {% if pos.tracked_phone and pos.tracked_phone.size != 0 %}
+            <div class="pos-detail-phone-wrapper">
+                <span class="pos-detail-phone-label">
+                    {{'frontoffice.pos.details.phone' | translate }}
+                </span>
+                {{pos.tracked_phone}}
+                <span class="pos-detail-phone-comment">
+                    {{ pos.phone_comment }}
+                </span>
+            </div>
+        {% elsif pos.phone and pos.phone.size != 0 %}
+            <div class="pos-detail-phone-wrapper">
+                <span class="pos-detail-phone-label">
+                    {{'frontoffice.pos.details.phone' | translate }}
+                </span>
+                {{pos.phone}}
+                <span class="pos-detail-phone-comment">
+                    {{ pos.phone_comment }}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if pos.fax and pos.fax.size != 0 %}
+            <div class="pos-detail-fax-wrapper">
+                <span class="pos-detail-fax-label">
+                    {{'frontoffice.pos.details.fax' | translate }}
+                </span>
+                {{pos.fax}}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-xs-6">
+        {% if pos.access_not_blank %}
+            <div class="pos-detail-access-wrapper">
+                <span class="pos-detail-access-label">
+                    {{ 'frontoffice.pos.additional_info.access' | translate }}
+                </span>
+                <p>
+                    {{ pos.access }}
+                </p>
+            </div>
+        {% endif %}
+
+        {% if pos.parking_not_blank %}
+            <div class="pos-detail-parking-wrapper">
+                <span class="pos-detail-parking-label">
+                    {{ 'frontoffice.pos.additional_info.parking' | translate }}
+                </span>
+                <p>
+                    {{ pos.parking }}
+                </p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6">
+        {% if pos_drop.take_thumbnails.size !=0 %}
+            {% for thumbnail in pos_drop.take_all_thumbnails %}
+                {% if forloop.index <= 1 %}
+                    <div class="item">
+                        <img src="{{ thumbnail.current_image }}"
+                             alt="{{ pos.name }} - {{ pos.city }}"
+                             skip_importer="true"
+                             rel="{{ thumbnail.current_image }}" />
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="col-xs-6" id="lf_accessmap">
+        <div id="lf_accessmap_canvas" style=""></div>
+    </div>
+</div>
+
+{% if opening_hours.groups.size != 0 %}
+    <!-- Opening hours -->
+    <div class="row">
+        <div class="col-xs-12">
+            {% include 'openinghours' %}
+        </div>
+    </div>
+{% endif %}
+
+{% include 'printnotes' %}

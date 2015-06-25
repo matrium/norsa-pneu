@@ -1,0 +1,73 @@
+{% if content_category %}
+<div class="pos-categories">
+    <div class="row">
+        <div class="col-xs-12 pos-categories-column pos-categories-parent">
+            <h2 class="title h4 pos-categories-column-title">{{ content_category.front_office_name }}</h2>
+            <div class="media">
+                {% if content_category.media.url.size != 0 %}
+                    <div class="pull-left">
+                        <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ content_category.media.url }}" alt="{{ content_category.alt }}" />
+                    </div>
+                {% endif %}
+
+                <div class="media-body">
+                    <p class="text-justify no-margin">
+                        {{ content_category.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for category in pos_drop.content_categories %}
+            {% assign content_level = content_category.level | plus:1 %}
+            {% if category.level == content_level %}
+            <div class="col-md-4 col-sm-6 col-xs-12 pos-categories-column margin-bottom-lg  pos-categories-child">
+                <div class="media">
+                    {% if category.media.url.size != 0 %}
+                        <div class="pull-left">
+                            <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ category.media.url }}" alt="{{ category.alt }}" />
+                        </div>
+                    {% endif %}
+
+                    <div class="media-body">
+                        <a href="/{{ pos.identity }}{{ category.category_path }}#tabs-categories">
+                            <h3 class="title h4 no-margin-top pos-categories-title">
+                                {{ category.front_office_name }}
+                            </h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="pos-categories">
+    <h2 class="title h4">{{ 'frontoffice.pos.content_categories.title' | translate }}</h2>
+    <div class="row sorted-columns">
+        {% for category in pos_drop.content_categories %}
+            {% if category.level == 1 %}
+            <div class="col-md-4 col-sm-6 col-xs-12 pos-categories-column">
+                <div class="media">
+                    {% if category.media.url.size != 0 %}
+                        <div class="pull-left">
+                            <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ category.media.url }}" alt="{{ category.alt }}" />
+                        </div>
+                    {% endif %}
+
+                    <div class="media-body">
+                        <a href="/{{ pos.identity }}{{ category.category_path }}#tabs-categories">
+                            <h3 class="title h4 no-margin-top pos-categories-title">
+                                {{ category.front_office_name }}
+                            </h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

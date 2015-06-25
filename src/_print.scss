@@ -1,0 +1,158 @@
+//------------------------------------------------------------------
+// Print page
+//------------------------------------------------------------------
+
+@media print {
+    .print-container {
+        padding: 0;
+    }
+
+    .print-hide {
+        display: none !important;
+    }
+
+    .print-show {
+        display: block !important;
+    }
+
+    .modal-content {
+        border: 0;
+    }
+
+    a[href]:after {
+        content: '';
+    }
+
+    .modal-dialog {
+        width: 620px;
+    }
+
+    #lf_drivingdirections {
+        width: 100%;
+    }
+
+    #lf_ddmap {
+        width: 100%;
+    }
+
+    // Hide Google Map credits
+    .gmnoscreen {
+        display: none;
+    }
+
+    .gm-style-cc {
+        display: none;
+    }
+
+    // Show A/B marker on driving directions
+    .lf_marker .active_number {
+        background: url('../images/marker/marker.png') 0 0 no-repeat !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .pos-itinerary-content-marker {
+        background: url('../images/marker/marker.png') 0 0 no-repeat !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .active_current {
+        background: url('../images/marker/marker-pos.png') 0 0 no-repeat !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .lf_marker.active_number {
+        background: url('../images/marker/marker.png') 0 0 no-repeat !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .pos-access-map {
+        height: 300px;
+    }
+
+    .result {
+        &-content {
+            height: inherit;
+            max-height: inherit;
+            overflow: hidden;
+
+            &-postype {
+                text-align: left;
+            }
+
+            &-pos {
+                padding: 0;
+
+                &-marker {
+                    background: url('../images/marker/marker.png') 0 0 no-repeat !important;
+                    -webkit-print-color-adjust: exact;
+                }
+            }
+        }
+    }
+
+    .pos {
+        &-print {
+            &-logo {
+                display: block;
+            }
+
+            &-access {
+                display: block;
+                position: static;
+                top: 0;
+            }
+
+            &-map {
+                float: left;
+                width: 60%;
+            }
+
+            &-coordinates {
+                float: left;
+                width: 40%;
+
+                .title {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        &-content {
+            &-print {
+                float: left;
+                width: 50%;
+            }
+        }
+
+        &-hours {
+            &-title {
+                margin-top: 0;
+            }
+
+            &-exceptionnal {
+                margin-bottom: 10px;
+
+                &-title {
+                    margin-top: 0;
+                }
+            }
+
+            &-list {
+                .days {
+                    width: 25%;
+                }
+
+                ul {
+                    .day {
+                        text-align: left;
+                    }
+
+                    .time {
+                        padding: 0;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+}

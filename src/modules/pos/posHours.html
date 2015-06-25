@@ -1,0 +1,76 @@
+{% for group in opening_hours.groups %}
+    {% assign closing_time = 'true' %}
+{% endfor %}
+<div class="pos-hours" id="lf_openinghours">
+    {% if closing_time == 'true' %}
+    <div class="hidden-print">
+        <div class="title h4">{{'frontoffice.opening_hours.timer.title' | translate}} <span class="pos-hours-closed color-red">{{'frontoffice.opening_hours.timer.closed' | translate}}</span><span class="pos-hours-open color-green">{{'frontoffice.opening_hours.timer.open' | translate}}</span></div>
+        <div class="pos-hours-timer bold">{{'frontoffice.opening_hours.timer.closing' | translate}} <span class="pos-hours-timer-amount"></span></div>
+    </div>
+    {% endif %}
+    {% for group in opening_hours.groups %}
+    {% if group.has_distant_exceptional_hours %}
+    <div class="lf_openinghoursdays pos-hours-exceptionnal">
+        <h2 class="pos-hours-exceptionnal-title title h4">{{ opening_hours.title_exceptional }}</h2>
+        {% for eoh in group.distant_exceptional_hours %}
+        <div class="meta-exceptional-hours">
+          {% if eoh.closed? %}
+            <meta data-ctime-daystart="{{eoh.starts_at}}" data-ctime-dayend="{{eoh.ends_at}}" />
+          {% else %}
+            <meta data-ctime-daystart="{{eoh.starts_at}}" data-ctime-dayend="{{eoh.ends_at}}" data-ctime-startam="{{ eoh.time_starts_at1 | date: '%R' }}" data-ctime-startpm="{{ eoh.time_starts_at2 | date: '%R' }}" data-ctime-endam="{{ eoh.time_ends_at1 | date: '%R' }}" data-ctime-endpm="{{ eoh.time_ends_at2 | date: '%R' }}"/>
+          {% endif %}
+        </div>
+        <div class="margin-bottom-xs">
+            {% if eoh.closed? %}
+            <span class="pos-hours-exceptionnal-time bold color-red"><em class="glyphicon glyphicon-remove"></em> {{ eoh.closed }}</span>
+            {% else %}
+            <span class="pos-hours-exceptionnal-time bold color-green"><em class="glyphicon glyphicon-ok"></em> {{ 'frontoffice.pos.opening_hours.open' | translate }}</span>
+            {% endif %}
+            <span class="pos-hours-exceptionnal-date"> &bull; {{ eoh.date_string }} {{ eoh.time_string }}</span>
+            {% if eoh.description and eoh.description.size != 0 %}
+            <div class="pos-hours-exceptionnal-description small"><em>({{ eoh.description }})</em></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for group in opening_hours.groups %}
+    <div class="lf_openinghoursdays">
+        <h2 class="pos-hours-title title h4">{{ opening_hours.title }} {{ group.name }}</h2>
+        <ul class="pos-hours-list lf_days row row-no-padding">
+            {% assign strhours = "" %}
+            {% assign strhoursend = "no" %}
+            {% for day in group.days %}
+            {% if forloop.last == true %}{% assign strhoursend = "yes" %}{%endif%}
+            <li class="col-md-custom col-sm-3 col-xs-6 days">
+                <ul>
+                    <li class="day text-center">{{ day.name }}</li>
+                    <li class="time text-center">
+                        {% if day.is_normally_open %}
+                            {% for hours in day.regular_hours %}
+                            {% assign arrofw = "Su,Mo,Tu,We,Th,Fr,Sa" | split: ',' %}
+                            {% assign dayofw = day.dom_id | | remove: "day_" | plus: 0 %}
+                            {% capture strhour %},{{ arrofw[dayofw] }} {{ hours.start | date: "%H:%M" }}-{{ hours.end | date: "%H:%M" }}{% endcapture%}
+                            {% assign strhours = strhours | append: strhour %}
+                            <!-- {{ hours.time_string }} -->
+                            <div class="time-value" data-ctime-open="{{ hours.start | date: '%H:%M' }}" data-ctime-close="{{ hours.end | date: '%H:%M' }}" data-ctime-index="{{forloop.index0}}">
+                            {{ hours.start | date: "%H:%M" }} - {{ hours.end | date: "%H:%M" }}
+                            </div>
+                            {% if forloop.length < 2 %}
+                            <div class="time-empty">&nbsp;</div>
+                            {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="time-closed">{{ wordings.closed }}</div>
+                            <div class="time-empty">&nbsp;</div>
+                        {% endif %}
+                    </li>
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <meta itemprop="openingHours" content="{{ strhours | replace_first: ',', '' }}">
+    </div>
+    {% endfor %}
+</div>

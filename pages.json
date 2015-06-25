@@ -1,0 +1,38 @@
+{
+    "frontoffice/index/index": {
+        "layout": "index"
+    },
+    "frontoffice/products/show": {
+        "layout": "index"
+    },
+    "frontoffice/products/index": {
+        "layout": "index"
+    },
+    "frontoffice/products/reservations/confirmation": {
+        "layout": "index"
+    },
+    "frontoffice/in-stock/show": {
+        "layout": "index"
+    },
+    "frontoffice/in-stock/index": {
+        "layout": "index"
+    },
+    "frontoffice/list/show": {
+        "layout": "index"
+    },
+    "frontoffice/point_of_sale/show": {
+        "layout": "index"
+    },
+    "frontoffice/index/index": {
+        "layout": "index"
+    },
+    "frontoffice/error404": {
+        "layout": "index"
+    },
+    "frontoffice/point_of_sale/print": {
+        "layout": "index"
+    },
+    "frontoffice/content_categories/show":{
+        "layout":"index"
+    }
+}

@@ -1,0 +1,65 @@
+<div id="lf_drivingdirections" class="pos-itinerary-content">
+    <div class="hidden-print well">
+        <form id="pos-itinerary-content-form" method="POST" action="javascript:void(1)" role="form">
+            <div id="lf_ddfrom_wrapper">
+                <div class="form-group">
+                    <label class="control-label" for="lf_ddfrom" >
+                        {{ 'frontoffice.pos.directions.from' | translate }}
+                    </label>
+                    <input class="form-control" name="lf_ddfrom" id="lf_ddfrom" type="text" placeholder="{{ 'frontoffice.pos.directions.from_helper' | translate }}" required>
+                    <small class="help-block pull-right">{{ 'frontoffice.pos.directions.example' | translate }} {{ 'frontoffice.pos.directions.example_address' | translate }}</small>
+                </div>
+            </div>
+
+            <div id="lf_ddto" class="padding-top-xs">
+                <div class="form-group">
+                    <label class="control-label">
+                        {{ 'frontoffice.pos.directions.to' | translate }}
+                    </label>
+                    <div>
+                        {{ pos.name }}
+                        <address class="no-margin">{{ pos.address | newline_to_br }}<br />{{ pos.postal_code }} {{ pos.city }}</address>
+                    </div>
+                </div>
+            </div>
+
+            <div id="lf_ddcalculate">
+                <button type="submit" class="btn btn-primary pull-right">{{ 'frontoffice.pos.directions.go_button' | translate }}</button>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+
+    <div id="lf_ddresults" class="hidden-temp">
+        <div>
+            <div id="lf_ddmap" class="pos-itinerary-content-map"></div>
+            <button class="btn btn-primary hidden-print pos-itinerary-content-print" id="lf_ddprint"><em class="fa fa-print"></em> {{ 'frontoffice.pos.print' | translate }}</button>
+        </div>
+        <div>
+            <div class="direction-point well">
+                <div class="row">
+                    <div class="col-xs-8 vcenter">
+                        <div class="pos-itinerary-content-marker vcenter">
+                            <div class="pos-itinerary-content-marker-number">A</div>
+                        </div>
+                        <div id="lf_ddorigin" class="margin-left-md bold vcenter"></div>
+                    </div><!--
+                    --><div class="col-xs-4 vcenter">
+                        <em id="lf_ddestimate" class="pull-right"></em>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <ul id="lf_ddroutesteps" class="pos-itinerary-content-steps">
+                </ul>
+            </div>
+            <div class="direction-point well">
+                <div class="pos-itinerary-content-marker vcenter">
+                    <div class="pos-itinerary-content-marker-number">B</div>
+                </div>
+                <div id="lf_dddestination" class="vcenter margin-left-md bold">{{ pos.address | newline_to_br }}<br>{{ pos.postal_code }} {{ pos.city }}</div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

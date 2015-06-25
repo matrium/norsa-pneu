@@ -1,0 +1,56 @@
+{% assign eventinit = eventsslider | split:"," %}
+{% assign nbcol = 12 %}
+
+{% if eventinit.size == 2 %}
+    {% assign nbcol = 12 | divided_by:eventinit.last %}
+{% endif %}
+
+{% assign events = events[eventinit.first] %}
+
+{% if events.all_events.collection.size != 0 %}
+<div class="{{eventsslider}} eventsslider" aria-hidden="true">
+    <div class="eventsslider-carousel carousel slide" id="eventsslider-carousel" >
+        {% if events.all_events.collection.size > 1 %}
+        <ul class="carousel-indicators">
+            {% order events.all_events by starts_at with DESC %}
+            {% for event in ordered_events.collection %}         
+            <li data-target="#eventsslider-carousel" data-slide-to="{{forloop.index0}}"></li>
+            {% endfor %}
+            {% endorder %} 
+        </ul>
+        {% endif %}
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            {% order events.all_events by starts_at with DESC %}
+            {% for event in ordered_events.collection %} 
+                {% if event.media.image? %}
+                    <div class="item lf_event">
+                        {% if event.pdf.pdf? %}
+                        <a  data-event-id="{{ event.id }}" data-event-name="{{event.name}}" href="{{ event.pdf.url }}" class="eventsslider-carousel-pdf eventpdf" {%if event.open_link_in_a_new_window == 'true' %}target="_blank"{% endif %}>
+                            <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ event.media.display_url }}" class="eventsslider-carousel-img img-before-loading" alt="{{ event.name}}" />
+                        </a>
+                        {% elsif event.url!="" %}
+                        <a  data-event-id="{{ event.id }}" data-event-name="{{event.name}}" href="{{ event.url }}" class="eventsslider-carousel-link" {%if event.open_link_in_a_new_window == 'true' %}target="_blank"{% endif %}>
+                            <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ event.media.display_url }}" class="eventsslider-carousel-img img-before-loading" alt="{{ event.name}}" />
+                        </a>
+                        {% else %}
+                        <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ event.media.display_url }}" class="eventsslider-carousel-img img-before-loading" alt="{{ event.name}}" />
+                        {% endif %}
+                    </div>
+                {% endif %}    
+            {% endfor %}
+            {% endorder %} 
+        </div>
+
+        <!-- Carousel nav -->
+         {% if events.all_events.collection.size > 1 %}
+            <a class="left carousel-control" href="#eventsslider-carousel" data-slide="prev" aria-hidden="true">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#eventsslider-carousel" data-slide="next" aria-hidden="true">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,45 @@
+{% comment %}Don't forget to initialize this variable to hide/show phone number {% endcomment %}
+{% assign hide_phone = "true" %}
+
+{% assign state = pos.world_nodes | last %}
+{% assign zip_code = 'frontoffice.custom.zip_code.format' | translate %}
+<div class="markerpopup">
+    <div class="markerpopup-name">{{ pos.name }}</div>
+    <address class="markerpopup-address">
+        <div>
+            {{ pos.address1 }}
+            {% if pos.address2 and pos.address2.size !=0    %}
+            <br>{{ pos.address2 }}
+            {% endif %}
+        </div>
+        <div>
+            {% if zip_code =='zip' %}
+                {{ pos.postal_code }} {{ pos.city }}
+            {% else %}
+                {{ pos.city }}, {{ state.name }}{{ pos.postal_code }}
+            {% endif %}
+        </div>
+    </address>
+    {% if hide_phone == 'true' %}
+    {% assign phone_class = 'hide' %}
+    <button class="btn btn-info markerpopup-showphone">{{ 'frontoffice.pos.details.show_phone' | translate }}</button>
+    {% endif %}
+    {% if pos.tracked_phone and pos.tracked_phone.size != 0 %}
+    <div class="markerpopup-phone {{phone_class}}">
+        <span><em class="fa fa-phone"></em></span>
+        <span class="bold">{{pos.tracked_phone}} </span>
+        <span class="small">{{ pos.phone_comment }}</span>
+    </div>
+    {% elsif pos.phone and pos.phone.size != 0 %}
+    <div class="markerpopup-phone {{phone_class}}">
+        <span><em class="fa fa-phone"></em></span>
+        <span class="bold">{{pos.phone}} </span>
+        <span class="small">{{ pos.phone_comment }}</span>
+    </div>
+    {% endif %}
+    {% if pos.has_page %}
+    <div class="markerpopup-details">
+        <a href="/{{ pos.identity }}"><em class="fa fa-search"></em> {{ 'frontoffice.results.view_pos' | translate }}</a>
+    </div>
+    {% endif %}
+</div>

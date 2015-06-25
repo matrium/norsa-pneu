@@ -1,0 +1,41 @@
+<form id="new_address_request_form" class="pos-addressrequest" method="POST" action="/action/coordinates_request.json" role="form">
+    <input class="pos_id" id="address_request_form_point_of_sale_id" name="address_request_form[point_of_sale_id]" type="hidden" value="{{pos.id}}" />
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6">
+            <label for="address_request_form_email" class="control-label title">
+                {{ 'frontoffice.pos.address_request.labels.email' | translate }}
+            </label>
+            <input id="address_request_form_email" class="form-control" name="address_request_form[email]" type="text" />
+        </div>
+        {% if frontoffice.use_sms %}
+        <div class="form-group col-xs-12 col-sm-6">
+            <label for="address_request_form_phone_country_code" class="control-label title">
+                {{ 'frontoffice.pos.address_request.labels.sms' | translate }}
+            </label>
+            <select class="pos-addressrequest-country form-control" id="address_request_form_phone_country_code" name="address_request_form[phone_country_code]">
+                <option value="">{{ 'frontoffice.pos.address_request.prefixes.first_option' | translate }}</option>
+                {% for country in phone.prefixes %}
+                <option value="{{country.country_code}}" data-country-code="{{country.char_3_code}}">{{ country.name}} ({{country.country_code}})</option>
+                {% endfor %}
+            </select>
+            <select id="address_request_form_phone_country_iso" name="countryCode" class="hide" aria-hidden="true">
+                {% for country in phone.prefixes %}
+                <option value="{{country.char_3_code}}">{{ country.name}}</option>
+                {% endfor %}
+            </select>
+            <label for="address_request_form_sms" class="screen-reader-only">
+                {{ 'frontoffice.pos.address_request.labels.sms' | translate }}
+            </label>
+            <input id="address_request_form_sms" class="form-control" name="address_request_form[sms]" type="text" />
+        </div>
+        {% endif %}
+        <div class="col-xs-12">
+            <div class="alert success_request alert-success">
+            </div>
+        </div>
+        <div class="form-group col-xs-12 inherit">
+            <input class="btn btn-primary pull-right" type="submit" value="{{ 'frontoffice.pos.address_request.submit' | translate }}" />
+        </div>
+    </div>
+</form>

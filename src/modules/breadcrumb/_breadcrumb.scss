@@ -1,0 +1,27 @@
+//------------------------------------------------------------------
+// Breadcrumb
+//------------------------------------------------------------------
+
+.breadcrumb {
+    margin-bottom: 0;
+    background: none;
+    padding: 8px 0;
+    font-size: 96%;
+
+    a {
+        color: $breadcrumb-color;
+    }
+
+    .active {
+        font-weight: bold;
+    }
+
+    >li+li {
+        &:before {
+            color: $breadcrumb-color;
+            font-family: CustomIcons;
+            font-size: 76%;
+            content: '\e605';
+        }
+    }
+}

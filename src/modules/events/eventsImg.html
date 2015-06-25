@@ -1,0 +1,34 @@
+{% assign eventinit = eventsimg | split:"," %}
+{% assign nbcol = 12 %}
+
+{% if eventinit.size == 2 %}
+    {% assign nbcol = 12 | divided_by:eventinit.last %}
+{% endif %}
+
+{% assign events = events[eventinit.first] %}
+
+{% if events.all_events.collection.size != 0 %}
+<div class="{{eventsimg}} eventsimg hidden-print" aria-hidden="true">
+    <div class="row">
+        {% order events.all_events by starts_at with DESC %}
+        {% for event in ordered_events.collection %}        
+        <div class="col-sm-{{nbcol}} col-xs-12 {{ event.class_name }} eventsimg-content lf_event">
+            {% if event.media.image? %}
+                {% if event.pdf.pdf? %}
+                <a href="{{ event.pdf.url }}" class="eventsimg-content-pdf eventpdf" target="_blank" data-event-id="{{ event.id }}" data-event-name="{{event.name}}">
+                    <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ event.media.display_url }}" class="eventsimg-content-img img-before-loading" alt="{{ event.name}}" />
+                </a>
+                {% elsif event.url!="" %}
+                <a href="{{ event.url }}" class="eventsimg-content-link" {%if event.open_link_in_a_new_window == 'true' %}target="_blank"{% endif %} data-event-id="{{ event.id }}" data-event-name="{{event.name}}">
+                    <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ event.media.display_url }}" class="eventsimg-content-img img-before-loading" alt="{{ event.name}}" />
+                </a>
+                {% else %}
+                <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ event.media.display_url }}" class="eventsimg-content-img img-before-loading" alt="{{ event.name}}" />
+                {% endif %}
+            {% endif %}
+        </div>
+        {% endfor %} 
+        {% endorder %} 
+    </div>
+</div>
+{% endif %}

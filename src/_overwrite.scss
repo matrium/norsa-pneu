@@ -1,0 +1,65 @@
+//------------------------------------------------------------------
+// Boostrap Overwrite
+//------------------------------------------------------------------
+.backdrop {
+    display: none !important;
+}
+
+.backdrop_indicator {
+    display: none !important;
+}
+
+.container {
+    width: auto;
+    max-width: 1170px;
+}
+
+.row {
+    &-no-padding {
+        margin-right: 0;
+        margin-left: 0;
+
+        >[class*='col-'] {
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+}
+
+.help-block {
+    margin: 0;
+}
+
+.dropdown {
+    &-menu {
+        //border-radius: $border-radius;
+
+        @media (min-width: 768px) {
+            width: auto;
+        }
+
+        .checkbox {
+            margin: 0;
+        }
+
+        label {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.blockUI {
+    &.blockOverlay {
+        opacity: .5;
+        z-index: 10000 !important;
+        background-color: #000;
+    }
+
+    &.blockMsg {
+        z-index: 10001 !important;
+    }
+}
+
+.leaflet-control-attribution {
+    display: none;
+}

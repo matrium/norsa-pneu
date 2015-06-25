@@ -1,0 +1,54 @@
+//------------------------------------------------------------------
+// Events
+//------------------------------------------------------------------
+
+.eventsimg {
+    margin-top: 15px;
+
+    &-content {
+        margin-bottom: 15px;
+
+        &-img {
+            width: 100%;
+        }
+    }
+}
+
+.eventsactu {
+    margin-bottom: 20px;
+
+    &-content {
+        margin-top: 10px;
+        background-color: $white-color;
+        padding: 15px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &-media {
+            margin-bottom: 10px;
+            max-width: 100%;
+            text-align: center;
+
+            @media (min-width: 768px) {
+                margin-bottom: 0;
+                text-align: left;
+            }
+        }
+
+        &-body {
+            &-title {
+                margin-bottom: 0;
+            }
+
+            &-link {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.eventsslider {
+    margin-top: 15px;
+}
