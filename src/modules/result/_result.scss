@@ -14,7 +14,7 @@
 
     &-top {
         background-color: $grey-color;
-        color: $white-color;
+        color: $black-color;
 
         &-title {
             margin-top: 15px;
@@ -24,6 +24,7 @@
         &-subtitle {
             margin-top: 0;
             margin-bottom: 15px;
+            color: $red-color;
         }
     }
 
@@ -226,7 +227,7 @@
                 .pagination-number {
                     background-color: $pagination-color-background;
                     padding: 8px 14px;
-                    color: $blue-color;
+                    color: $pagination-color-text;
                 }
 
                 &.active {

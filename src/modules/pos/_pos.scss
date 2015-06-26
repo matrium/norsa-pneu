@@ -5,6 +5,7 @@
     &-print {
         &-logo {
             display: none;
+            width: 140px;
         }
     }
 
@@ -132,13 +133,13 @@
                 font-weight: 500;
 
                 &.active {
-                    border-bottom: 3px solid $blue-color;
-                    color: $blue-color;
+                    border-bottom: 3px solid $red-color;
+                    color: $red-color;
                 }
 
                 &:hover {
-                    border-bottom: 3px solid $blue-color;
-                    color: $blue-color;
+                    border-bottom: 3px solid $red-color;
+                    color: $red-color;
                 }
             }
         }
@@ -223,7 +224,7 @@
                     clear: none;
                 }
 
-                &:nth-child(3n+1) {
+                &:nth-child(2n+1) {
                     clear: both;
                 }
             }
@@ -248,7 +249,7 @@
                     clear: none;
                 }
 
-                &:nth-child(3n+1) {
+                &:nth-child(2n+1) {
                     clear: both;
                 }
             }
@@ -301,11 +302,11 @@
                 list-style-type: none;
 
                 .day {
-                    border-bottom: 1px solid $white-color;
-                    background-color: $blue-color;
+                    border-bottom: 1px solid $grey-color;
+                    background-color: $grey-color;
                     padding: 5px 0;
                     text-transform: capitalize;
-                    color: $white-color;
+                    color: $black-color;
                     font-weight: bold;
 
                 }
@@ -320,11 +321,11 @@
             }
 
             .today {
-                color: $blue-color;
                 font-weight: bold;
 
                 .day {
-                    background-color: #128ad2;
+                    background-color: $red-color;
+                    color: $white-color;
                 }
             }
         }

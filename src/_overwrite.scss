@@ -1,6 +1,10 @@
 //------------------------------------------------------------------
 // Boostrap Overwrite
 //------------------------------------------------------------------
+body {
+    font-family: 'Arial', sans-serif;
+}
+
 .backdrop {
     display: none !important;
 }
@@ -24,6 +28,10 @@
             padding-left: 0;
         }
     }
+}
+
+.title {
+    text-transform: uppercase;
 }
 
 .help-block {
@@ -59,6 +67,13 @@
         z-index: 10001 !important;
     }
 }
+
+// .btn-primary {
+//     background-color: $grey-color;
+//     border-color: $grey-color;
+//     color: $black-color;
+//     transition: background-color 0.7s;
+// }
 
 .leaflet-control-attribution {
     display: none;

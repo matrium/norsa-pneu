@@ -4,12 +4,12 @@
 
 .breadcrumb {
     margin-bottom: 0;
-    background: none;
-    padding: 8px 0;
+    background: $red-color;
+    padding: 2px 0 2px 20px;
     font-size: 96%;
 
     a {
-        color: $breadcrumb-color;
+        color: $white-color;
     }
 
     .active {
@@ -18,7 +18,7 @@
 
     >li+li {
         &:before {
-            color: $breadcrumb-color;
+            color: $white-color;
             font-family: CustomIcons;
             font-size: 76%;
             content: '\e605';
