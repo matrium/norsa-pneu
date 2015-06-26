@@ -1,6 +1,7 @@
 //------------------------------------------------------------------
 // App Style Import
 //------------------------------------------------------------------
+@import 'variables';
 
 //Vendors
 @import 'vendors/font-awesome';
@@ -9,7 +10,6 @@
 @import 'vendors/bootstrap-checkbox';
 
 // Core variables and mixins
-@import 'variables';
 @import 'mixin';
 @import 'overwrite';
 @import 'helpers';

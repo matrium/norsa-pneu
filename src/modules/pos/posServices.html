@@ -2,7 +2,7 @@
     <h2 class="title h4">{{ 'frontoffice.pos.additional_tabs.tab2' | translate }}</h2>
     <div class="row sorted-columns">
         {% for service in services %}
-        <div class="col-md-4 col-sm-6 col-xs-12 pos-services-column" data-st-ordered="{{ service.css_class }}">
+        <div class="col-md-6 col-sm-6 col-xs-12 pos-services-column" data-st-ordered="{{ service.css_class }}">
             <div class="media">
                 {% if service.media.url != 0 %}
                     <div class="pull-left">
@@ -14,7 +14,7 @@
                     <h3 class="title h4 pos-services-title">
                         {{ service.label }}
                     </h3>
-                    <p class="text-justify no-margin">
+                    <p class="no-margin">
                         {{ service.description }}
                     </p>
                 </div>

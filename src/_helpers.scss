@@ -58,9 +58,13 @@
     border: 0 !important;
 }
 
+.border-top-red {
+    border-top: 12px solid $red-color;
+}
+
 .background {
     &-grey {
-        background-color: $lightgrey-color;
+        background-color: $grey-color;
     }
 
     &-white {

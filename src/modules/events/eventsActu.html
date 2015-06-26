@@ -5,7 +5,7 @@
 <div class="{{eventsactu}} eventsactu hidden-print">
     <h{{ 2 | plus:add_hlevel }} class="eventsactu-title title h4">{{ events.category_label }}</h{{ 2 | plus:add_hlevel }}>
     {% for event in events.all_by_category %}
-    <div class="eventsactu-content lf_event">
+    <div class="eventsactu-content lf_event border-top-red ">
         <div class="{{ event.class_name }} row">
             <div class="col-md-4 col-sm-5 col-xs-12 vcenter eventsactu-content-media">
                 {% if event.media? %}

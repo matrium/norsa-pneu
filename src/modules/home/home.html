@@ -13,7 +13,6 @@
     </div>
     <div class="container">
         {% include 'eventsslider' with 'lf_big_picture' %}
-        {% include 'eventsimg' with 'lf_big_picture' %}
     </div>
     <div class="home-intro container">
         <h2 class="home-intro-title title text-center">{{'frontoffice.index_page.introduction_title' | translate }}</h2>
@@ -29,8 +28,10 @@
     <div class="container">
         {% include 'eventsimg' with 'lf_small_picture,2' %}
     </div>
-    <div class="container">
-        {% include 'citiesseo' %}
-        {% include 'copyright' %}
+    <div class="border-top-red">
+        <div class="container">
+            {% include 'citiesseo' %}
+            {% include 'copyright' %}
+        </div>
     </div>
 </div>
