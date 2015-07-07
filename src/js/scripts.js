@@ -324,7 +324,7 @@ $(document).ready(function() {
             }*/
             if ($('.pos-background-first:onScreen').length === 0) {
                 $posTabs.addClass('fixed');
-                $('body').css({'padding-top': '64px'});                
+                $('body').css({'padding-top': '80px'});                
             } else {
                 $posTabs.removeClass('fixed');
                 $('body').css({'padding-top': '0'});

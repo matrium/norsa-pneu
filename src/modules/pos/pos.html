@@ -133,8 +133,12 @@
                             {% if smart_tags.products and smart_tags.products.size != 0 %}
                             <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-products">{{ 'frontoffice.pos.additional_tabs.tab1' | translate }}</h2>
                             {% endif %}
+                            
                             {% if smart_tags.services and smart_tags.services.size != 0 %}
                             <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-services">{{ 'frontoffice.pos.additional_tabs.tab2' | translate }}</h2>
+                            {% endif %}
+                            {% if smart_tags.paiement and smart_tags.paiement.size != 0 %}
+                            <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-paiement">{{ 'frontoffice.pos.additional_tabs.tab_paiement' | translate }}</h2>
                             {% endif %}
                             {% if content_categories == 'true' %}
                             <h2 class="title h4 pos-content-tabs-title col-sm-2 hidden-xs" data-id="tabs-categories">{{ 'frontoffice.pos.additional_tabs.tab6' | translate }}</h2>
@@ -209,6 +213,13 @@
             <div class="container hidden-print" id="tabs-services">
                 <div class="pos-background">
                     {% include 'posservices' %}
+                </div>
+            </div>
+            {% endif %}
+            {% if smart_tags.paiement and smart_tags.paiement.size != 0 %}
+            <div class="container hidden-print" id="tabs-paiement">
+                <div class="pos-background">
+                    {% include 'pospaiements' %}
                 </div>
             </div>
             {% endif %}

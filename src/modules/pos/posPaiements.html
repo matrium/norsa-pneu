@@ -1,0 +1,19 @@
+<div class="pos-paiements" id="lf_paiements">
+    <h2 class="title h4 no-margin-top marin-bottom-md">{{ 'frontoffice.pos.additional_tabs.tab_paiement' | translate }}</h2>
+    <div class="row sorted-columns">
+        {% for paiement in pos.smart_tags.paiement %}
+        <div class="col-md-4 col-sm-6 col-xs-6 pos-paiements-column margin-bottom-lg" data-st-ordered="{{ paiement.css_class }}">
+            <div class="media">
+                {% if paiement.media.url != 0 %}
+                {% endif %}
+
+                <div class="media-body">
+                    <h3 class=" h4 no-margin-top pos-paiements-title">
+                        {{ paiement.smart_tag_parameter.label }}
+                    </h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

@@ -2,16 +2,13 @@
     <h2 class="title h4 no-margin-top marin-bottom-md">{{ 'frontoffice.pos.additional_tabs.tab1' | translate }}</h2>
     <div class="row sorted-columns">
         {% for product in products %}
-        <div class="col-md-4 col-sm-6 col-xs-12 pos-products-column margin-bottom-lg" data-st-ordered="{{ product.css_class }}">
+        <div class="col-md-4 col-sm-6 col-xs-6 pos-products-column margin-bottom-lg" data-st-ordered="{{ product.css_class }}">
             <div class="media">
                 {% if product.media.url != 0 %}
-                    <div class="pull-left">
-                        <img src="{{ frontoffice.view_short_template_path }}/images/empty.png" data-src="{{ product.media.url }}" alt="{{ product.alt }}" />
-                    </div>
                 {% endif %}
 
                 <div class="media-body">
-                    <h3 class="title h4 no-margin-top pos-products-title">
+                    <h3 class=" h4 no-margin-top pos-products-title">
                         {{ product.label }}
                     </h3>
                     <p class="text-justify no-margin">
